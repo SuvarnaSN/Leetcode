@@ -1,0 +1,8 @@
+SELECT Employee.name 
+FROM   
+    (SELECT managerId 
+        FROM Employee
+        GROUP BY managerId
+        HAVING COUNT(managerId) >= 5
+)s INNER JOIN Employee
+WHERE id = s.managerId
