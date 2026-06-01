@@ -1,0 +1,1 @@
+Find id which is odd and movies that are not boring so for finding odd id we use id % 2 = 1 in the WHERE clause.
