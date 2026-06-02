@@ -1,0 +1,16 @@
+GROUP BY will group all the rows that have the same query name 
+Quality Calc = SUM(q.rating/q.position) / COUNT(*) . In this we are finding the aggregate of rating/position and then taking the average
+Poor Query Percentage = 
+
+ROUND(
+    (
+      SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)
+      / COUNT(*)
+    ) * 100,
+    2
+)
+
+
+SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) -> Counts rows which have rating < 3
+Then divide by total rows and then take percentage
+
