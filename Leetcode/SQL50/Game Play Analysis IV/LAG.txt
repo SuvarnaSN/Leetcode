@@ -1,0 +1,11 @@
+LAG(column_name, offset, default_value) OVER (
+    PARTITION BY group_column
+    ORDER BY sort_column
+)
+
+Breakdown of Arguments'
+column_name: The column containing the value you want to retrieve.
+offset (Optional): How many rows back you want to look. The default is 1 (the row immediately above).
+default_value (Optional): The value returned if the function looks past the first row of data (where no previous row exists). It defaults to NULL.
+PARTITION BY (Optional): Groups the rows into separate windows (e.g., separating data by specific store, customer, or product type).
+ORDER BY (Mandatory): Determines the sequence of the rows so SQL knows exactly what "previous" means.
