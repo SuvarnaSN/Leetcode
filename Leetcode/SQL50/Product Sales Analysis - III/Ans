@@ -18,3 +18,15 @@ FROM SALES
 GROUP BY product_id
 
 we need not do any ORDER BY because after doing group by there is no single year column anymore it is already associated with the group
+
+############################################################################################################################################
+# Write your MySQL query statement below
+SELECT  s.product_id, first_year, s.quantity, s.price FROM
+Sales AS s JOIN  (                    # joining original table with the table that has the unique year rows
+SELECT product_id, MIN(year) AS first_year
+    FROM SALES
+    GROUP BY product_id
+) AS p
+ON p.product_id = s.product_id             # grouping column
+AND s.year = first_year                       # ordering column
+############################################################################################################################################
