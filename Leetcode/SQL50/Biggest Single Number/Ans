@@ -1,0 +1,36 @@
+SELECT MAX(max_nums) as num
+from (
+    select MAX(num) AS max_nums
+    FROM MyNumbers
+    GROUP BY num
+    HAVING COUNT(num) = 1
+    ORDER BY num desc
+) as p
+
+The inner query will give us an output like the one below
+
+This is the main table
++-----+
+| num |
++-----+
+| 8   |
+| 8   |
+| 3   |
+| 3   |
+| 1   |
+| 4   |
+| 5   |
+| 6   |
++-----+
+
+Inner query output
+| max_nums |
+| -------- |
+| 6        |
+| 5        |
+| 4        |
+| 1        |
+
+Outer query will fetch the max number from this group of maximum numbers.
+num
+6
