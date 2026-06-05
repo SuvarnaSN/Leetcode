@@ -6,6 +6,18 @@ earliest order per customer
 first login per user
 minimum date per group
 
+Step 1: Find the key row per group
 SELECT group_column, MIN(ordering_column) AS first_value
 FROM table
 GROUP BY group_column;
+
+Step 2: JOIN back to the original table
+SELECT t.*
+FROM table t
+JOIN (
+    SELECT group_column, MIN(ordering_column) AS first_value
+    FROM table
+    GROUP BY group_column
+) x
+ON t.group_column = x.group_column
+AND t.ordering_column = x.first_value;
