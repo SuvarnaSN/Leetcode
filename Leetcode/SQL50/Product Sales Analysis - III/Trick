@@ -1,0 +1,11 @@
+Here’s a 30-second interview shortcut pattern for almost all:
+
+“first occurrence per group / earliest row per group / minimum year per product” type problems
+first year per product
+earliest order per customer
+first login per user
+minimum date per group
+
+SELECT group_column, MIN(ordering_column) AS first_value
+FROM table
+GROUP BY group_column;
