@@ -9,3 +9,12 @@ SELECT product_id, MIN(year) AS first_year, quantity, price
 FROM SALES
 GROUP BY product_id
 ORDER BY year ASC
+This is incorrect because quantity and price are not aggregated but they are added in the select statement.
+
+Approach
+1. Find first year per product
+SELECT product_id, MIN(year) AS first_year, quantity, price
+FROM SALES
+GROUP BY product_id
+
+we need not do any ORDER BY because after doing group by there is no single year column anymore it is already associated with the group
