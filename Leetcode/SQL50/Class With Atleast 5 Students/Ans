@@ -4,4 +4,9 @@ FROM Courses
 GROUP BY class) AS P
 WHERE p.student_count >= 5
 
+OR
 
+SELECT class
+FROM Courses
+GROUP BY class 
+HAVING p.student_count >= 5
