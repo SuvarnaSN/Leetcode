@@ -1,0 +1,81 @@
+#### Target Date = 2019-08-16
+#### What determines the product price on that date?
+##### What was the last price change that happened on or before 2019-08-16
+2019-08-14 -> 20
+2019-08-15 -> 30
+2019-08-16 -> 35
+
+##### Latest Valid date == 2019-08-16 and Price = 35
+##### Initially all products have default value as 10
+
+Solution
+
+### Step 1. We have to fetch from Products table those entries whose latest change_date is on or before '2019-08-16'
+So 
+SELECT product_id, MAX(change_date)
+FROM Products
+WHERE change_date <= '2019-08-16'
+GROUP BY product_id                   # kyunki we need only one entry per product_id
+
+### Step 2: But we also need price for all the products. So This is our inner query
+
+SELECT product_id, new_price AS price
+FROM Products
+WHERE (product_id, change_date) IN        # select those product_id whose (product_id, change_date) matches with the inner query condition
+(
+  SELECT product_id, MAX(change_date)
+  FROM Products
+  WHERE change_date <= '2019-08-16'
+  GROUP BY product_id
+)
+
+### Step 3: We also need to find those products which were never changed before '2019-08-16' and their default price would be 10
+### So we write a new query for this condition and combine using UNION
+
+SELECT product_id, new_price AS price
+FROM Products
+WHERE (product_id, change_date) IN        # select those product_id whose (product_id, change_date) matches with the inner query condition
+(
+  SELECT product_id, MAX(change_date)
+  FROM Products
+  WHERE change_date <= '2019-08-16'
+  GROUP BY product_id
+)
+
+UNION
+### we are are trying to find those products which were never changed before '2019-08-16'
+product_id NOT IN (
+  select product_id
+  FROM Products
+  WHERE change_date <= '2019-08-16'
+)
+
+### After selecting we then just assign 10 as the default price
+SELECT product_id , 10 AS price
+FROM Products 
+WHERE product_id NOT IN (
+  select product_id
+  FROM Products
+  WHERE change_date <= '2019-08-16'
+)
+
+### So the final query
+
+SELECT product_id, new_price AS price
+FROM Products
+WHERE (product_id, change_date) IN(
+    SELECT product_id, max(change_date)
+    FROM Products
+    WHERE change_date <= '2019-08-16'
+    GROUP BY product_id
+)
+
+UNION
+
+SELECT product_id, 10 AS price
+FROM Products
+where product_id NOT IN (
+    SELECT product_id
+    FROM Products
+    WHERE change_date <= '2019-08-16'
+)
