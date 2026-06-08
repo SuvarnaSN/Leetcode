@@ -12,7 +12,7 @@ Solution
 
 ### Step 1. We have to fetch from Products table those entries whose latest change_date is on or before '2019-08-16'
 So 
-SELECT product_id, MAX(change_date)
+SELECT product_id, MAX(change_date) 
 FROM Products
 WHERE change_date <= '2019-08-16'
 GROUP BY product_id                   # kyunki we need only one entry per product_id
