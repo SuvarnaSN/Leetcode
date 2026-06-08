@@ -23,3 +23,5 @@ ranking rows	    ->  ROW_NUMBER()
 #### Fall back -> Fall back means if there is no row with any primary_flag = 'Y' then it will return MAX(department_id) as a fallback value
 #### COALESCE(primary_value, fall_back value)  -> This will print the non null value. If primary = NULL print fallback value else print primary value
 
+#### Case 1: primary exists => COALESCE(10, 30) → 10
+#### Case 2: primary missing => COALESCE(NULL, 30) → 30
