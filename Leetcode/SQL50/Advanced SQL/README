@@ -1,0 +1,101 @@
+# SQL Window Function Query Explanation
+---------------------------------------------------------------------------------------------------------------
+## Query
+```sql
+SELECT person_name
+FROM
+(
+    SELECT person_name, 
+           SUM(Weight) OVER (ORDER BY Turn) AS cumulative_sum
+    FROM Queue
+) AS cumsum
+WHERE cumulative_sum = 1000;
+```
+------------------------------------------------------------------------------------------------------------------
+## 1. Purpose of the Query
+This query is trying to find:  The person whose cumulative (running) sum of weights becomes exactly 1000 when people board in order of `turn`.
+
+---------------------------------------------------------------------------------------------------------------
+## 2. Inner Query (Window Function)
+```sql
+SELECT person_name, 
+       SUM(Weight) OVER (ORDER BY Turn) AS cumulative_sum
+FROM Queue
+```
+### What it does:
+* Orders rows by `turn`. 
+* Calculates a running total of `weight`
+* Does NOT collapse rows (unlike GROUP BY)
+* Adds a new column: `cumulative_sum`
+### Example output:
+| turn | person_name | weight | cumulative_sum |
+| ---- | ----------- | ------ | -------------- |
+| 1    | Alice       | 250    | 250            |
+| 2    | Alex        | 350    | 600            |
+| 3    | John Cena   | 400    | 1000           |
+| 4    | Marie       | 200    | 1200           |
+
+---------------------------------------------------------------------------------------------------------------
+## 3. Subquery Alias
+```sql
+AS cumsum ```
+This converts the result into a temporary table:
+| person_name | cumulative_sum |
+| ----------- | -------------- |
+| Alice       | 250            |
+| Alex        | 600            |
+| John Cena   | 1000           |
+| Marie       | 1200           |
+
+Now this can be filtered like a normal table. 
+---------------------------------------------------------------------------------------------------------------
+
+## 4. Outer Query Filter
+```sql
+WHERE cumulative_sum = 1000;
+```
+### What it does:
+* Filters rows where cumulative weight equals 1000
+* Returns the matching person
+
+### Result:
+| person_name |
+| ----------- |
+| John Cena   |
+
+------------------------------------------------------------------------------------------------------------------
+
+## 5. Important Concept
+This query assumes: > The running total will exactly hit 1000 at some row.
+---------------------------------------------------------------------------------------------------------------
+### Correct solution:
+```sql
+SELECT person_name
+FROM (
+    SELECT person_name,
+           SUM(weight) OVER (ORDER BY turn) AS cumulative_sum
+    FROM Queue
+) cumsum
+WHERE cumulative_sum = 1000
+ORDER BY cumulative_sum DESC
+LIMIT 1;
+```
+------------------------------------------------------------------------------------------------------------------
+
+## 8. Key Idea Summary
+This query demonstrates:
+* Window function (running total)
+* Subquery acting like a temporary table
+* Filtering based on computed column
+------------------------------------------------------------------------------------------------------------------
+
+## 9. Mental Model
+Think of it as:
+1. Build a running scoreboard of weight accumulation
+2. Convert it into a table
+3. Filter rows based on a condition
+4. Pick the matching person
+------------------------------------------------------------------------------------------------------------------
+
+## 10. One-Line Summary
+This query calculates a running sum of weights ordered by `turn` and returns the person whose cumulative weight reaches 1000.
