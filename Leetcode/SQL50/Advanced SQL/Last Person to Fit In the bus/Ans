@@ -1,0 +1,6 @@
+SELECT person_name
+FROM
+(SELECT person_name, 
+    SUM(Weight) OVER (ORDER BY Turn) AS cumulative_sum
+FROM Queue) AS cumsum
+WHERE cumulative_sum = 1000;
