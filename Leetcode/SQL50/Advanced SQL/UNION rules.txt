@@ -1,0 +1,5 @@
+UNION -> UNION is used to combine two SQL queries. So when we use UNION we should always wrap both the SQL queries in paranthesis.
+Also when we are using UNION we should make sure that the structure of results of both the queries is the same. This means that both the queries should
+return the same number of columns.
+
+
