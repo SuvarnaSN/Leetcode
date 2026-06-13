@@ -9,7 +9,7 @@ Same meaning structure (logically aligned output)
 
 For example: User name (string) and Movie title (string) both are strings
 
-2. Each query in UNION must be wrapped in paranthesis. 
+2. Each query in UNION must be wrapped in paranthesis. But dont add semicolon after the first query
 ORDER BY applies to whole UNION result unless scoped
 LIMIT must be local to each subquery
 
