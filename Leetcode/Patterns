@@ -1,0 +1,26 @@
+#	Pattern	Typical clues
+1	Basic Traversal	Find max/min/sum/count, process every element
+2	Hash Map / Hash Set	Frequency, duplicates, "have I seen this?", complement
+3	Two Pointers	Sorted array, pair problems, compare from both ends
+4	Sliding Window	Contiguous subarray/substring, longest/shortest, fixed/variable window
+5	Prefix Sum	Repeated range sums, subarray sum
+6	Binary Search	Sorted data, search efficiently, "minimum/maximum possible answer"
+7	Sorting + Greedy	Sort first, then make locally optimal choices
+8	Intervals	[start, end], overlapping intervals, scheduling
+9	Stack / Monotonic Stack	Matching brackets, next greater/smaller, previous greater/smaller
+10	Queue / Deque	Process in order, BFS, sliding-window maximum
+11	Linked List Techniques	Fast/slow pointers, reversal, cycle detection
+12	Tree DFS	Recursive tree traversal, depth, paths
+13	Tree BFS	Level-order traversal, shortest level distance
+14	Heap / Priority Queue	Top K, smallest/largest, continuously get min/max
+15	Graph DFS/BFS	Connectivity, paths, components, islands
+16	Topological Sort	Dependencies, prerequisites, ordering
+17	Union-Find / DSU	Connected components, grouping, dynamic connectivity
+18	Backtracking	Generate all combinations/permutations/subsets
+19	Greedy	Make the best local decision at each step
+20	Dynamic Programming	Number of ways, optimal result, overlapping subproblems
+21	Memoization	Recursion + cache previously calculated states
+22	Trie	Prefix/search problems involving words
+23	Bit Manipulation	XOR, binary representation, bit-based tricks
+24	Advanced Graph Algorithms	Dijkstra, MST, shortest paths
+25	Advanced DP	2D DP, subsequence DP, knapsack, state-machine DP
